@@ -9,3 +9,8 @@
 /* ----------------------------------------------------
 	You can put your custom css code here: 
 -------------------------------------------------------*/
+input[type="checkbox"]
+{
+    height:auto;
+    width:auto;
+}

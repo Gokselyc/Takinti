@@ -6,20 +6,16 @@ using System.Web.Mvc;
 
 namespace Takinti.Controllers
 {
-    public class HomeController : Controller
+    public class ShopController : Controller
     {
-        public ActionResult Index()
+        // GET: Shop
+        public ActionResult Cart()
         {
             return View();
         }
-
-       
-
-        public ActionResult Contact()
+        public ActionResult Checkout()
         {
-            
             return View();
-
         }
     }
 }
