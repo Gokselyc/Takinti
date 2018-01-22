@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Takinti.Models
 {
-    public class Product
+    public class Product 
     {
         public Product ()
         {
