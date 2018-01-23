@@ -23,7 +23,7 @@ namespace Takinti.Controllers
         {
             using (var db = new ApplicationDbContext())
             {
-                if(Session["Cart"]==null)
+                if (Session["Cart"] == null)
                 {
                     Session["Cart"] = new Cart();
                 }
@@ -34,11 +34,11 @@ namespace Takinti.Controllers
                 cartItem.Quantity = 1;
 
 
-                var product = db.Products.FirstOrDefault(p => p.Slug.ToLower() == slug.ToLower() 
+                var product = db.Products.FirstOrDefault(p => p.Slug.ToLower() == slug.ToLower()
                 && p.IsInStock == true && p.Quantity > 0 && p.IsPublished == true);
 
 
-                    if(product==null)
+                if (product == null)
                 {
                     return Json(false);
                 }
@@ -47,9 +47,18 @@ namespace Takinti.Controllers
                 cartItem.Product = product;
                 cartItem.CreateDate = DateTime.Now;
                 ((Cart)Session["Cart"]).CartItems.Add(cartItem);
-                return Json(true);
+                return Json(CartProductCount());
             }
-            
+        }
+            public int CartProductCount()
+            {
+                if (Session ["Cart"]!=null)
+                {
+                    return ((Cart)Session["Cart"]).ProductCount;
+                }
+
+                return 0;
+
+            }
         }
     }
-}

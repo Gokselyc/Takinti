@@ -129,10 +129,10 @@
                             <ul class="menu-extra">
                                 <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
                                 <li><a href="@Url.Action("Login","Account")"><span class="ti-user"></span></a></li>
-                                <li class="cart__menu"><span class="ti-shopping-cart"></span>
+                                <li id="shoppingCart" class="cart__menu"><span class="ti-shopping-cart"></span>
                                 @if (Session["Cart"]!=null && ((Takinti.Models.Cart)Session["Cart"]).ProductCount>0)
                                 {
-                          <span class="badge" style="background-color:red; font-size:xx-small; vertical-align:super; line-height:15px; color:white; font-weight:normal;">@(((Takinti.Models.Cart)Session["Cart"]).ProductCount)</span>
+                          <span id="cartBadge" class="badge" style="background-color:red; font-size:xx-small; vertical-align:super; line-height:15px; color:white; font-weight:normal;">@(((Takinti.Models.Cart)Session["Cart"]).ProductCount)</span>
                                 }
                                 </li>
                                 
@@ -428,10 +428,15 @@
     <script src="/js/main.js"></script>
 
     <script>
-        function AddToCart(slug) {
+        function AddToCart(slug,closeModal) {
             $.post("/Shop/AddToCart", { slug: slug }, function (data) {
 
                 if (data == true) {
+
+                    UpdateBadge(data);
+                    if (closeModal) {
+                        $(closeModal).modal("hide");
+                    }
                     alert("ürün sepete eklendi :)");
                 }
                 else {
@@ -439,6 +444,17 @@
                 }
             });
         }
+
+
+        function UpdateBadge(data) {
+            if ($("#cartBadge").html() != null) {
+                $("#cartBadge").html(data);
+            }
+            else {
+                $("#shoppingCart").append('<span class="badge" style="background-color:red; font-size:xx-small; vertical-align:super; line-height:15px; color:white; font-weight:normal;">'+ data + '</span>')
+            }
+        }
+
     </script>
 
 
